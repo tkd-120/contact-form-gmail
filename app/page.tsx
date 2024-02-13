@@ -19,7 +19,7 @@ export default function Home() {
       message: messageRef.current?.value,
     };
 
-    await fetch("/api/contact", {
+    await fetch("https://contact-form-blush-five.vercel.app/api/contact", {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain, */*",
