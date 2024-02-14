@@ -1,34 +1,54 @@
 "use client";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Inter } from "next/font/google";
-import React, { useRef } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
+import React, { useRef, useState } from "react";
 
 export default function Home() {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
+  const [isSending, setIsSending] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSending(true);
+    setMessage(null);
     let data = {
       name: nameRef.current?.value,
       email: emailRef.current?.value,
       message: messageRef.current?.value,
     };
 
-    await fetch("https://contact-form-blush-five.vercel.app/api/contact", {
-      method: "POST",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then((res) => {
-      if (res.status === 200) console.log("送信に成功しました");
-    });
+    try {
+      await fetch("api/contact", {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((res) => {
+        if (res.status === 200) {
+          console.log("送信に成功しました");
+          setMessage("送信いたしました。");
+        } else {
+          setMessage(
+            "送信中にエラーが発生しました。 Status code: " + res.status
+          );
+        }
+      });
+    } catch (error: any) {
+      setMessage(
+        "送信中にエラーが発生しました。 Status code: " + error.message
+      );
+    } finally {
+      setIsSending(false);
+      if (nameRef.current) nameRef.current.value = "";
+      if (emailRef.current) emailRef.current.value = "";
+      if (messageRef.current) messageRef.current.value = "";
+    }
   };
   return (
     <div className="container mt-5">
@@ -62,10 +82,19 @@ export default function Home() {
             ref={messageRef}
           ></textarea>
         </div>
-        <button type="submit" className="btn btn-primary">
-          メール送信
+        <button disabled={isSending} type="submit" className="btn btn-primary">
+          {isSending ? "送信中..." : "送信"}
         </button>
       </form>
+      {message && (
+        <div
+          className={`${
+            message.includes("successfully") ? "text-green-700" : "text-red-700"
+          } text-sm font-medium mt-3`}
+        >
+          {message}
+        </div>
+      )}
     </div>
   );
 }
