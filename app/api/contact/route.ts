@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 
 export async function POST(request: NextRequest) {
   const transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com",
+    host: "smtp.mail.me.com",
     port: 587,
     auth: {
       user: process.env.GMAILUSER,
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   });
   const body = await request.json();
   const toHostMailData = {
-    from: `${body.email}`,
+    from: process.env.GMAILUSER,
     to: "tkd120pg@gmail.com",
     subject: `【お問い合わせ】${body.name}様より`,
     text: body.message + " | Sent from: " + body.email,
