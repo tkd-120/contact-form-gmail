@@ -33,6 +33,9 @@ export default function Home() {
         if (res.status === 200) {
           console.log("送信に成功しました");
           setMessage("送信いたしました。");
+          if (nameRef.current) nameRef.current.value = "";
+          if (emailRef.current) emailRef.current.value = "";
+          if (messageRef.current) messageRef.current.value = "";
         } else {
           setMessage(
             "送信中にエラーが発生しました。 Status code: " + res.status
@@ -45,9 +48,6 @@ export default function Home() {
       );
     } finally {
       setIsSending(false);
-      if (nameRef.current) nameRef.current.value = "";
-      if (emailRef.current) emailRef.current.value = "";
-      if (messageRef.current) messageRef.current.value = "";
     }
   };
   return (
