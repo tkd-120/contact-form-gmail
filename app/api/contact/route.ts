@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
       <p>${body.email}</p>
     `,
   };
+  await transporter.sendMail(toHostMailData);
 
   const mailOptions = {
     from: process.env.GMAILUSER,
@@ -34,9 +35,9 @@ export async function POST(request: NextRequest) {
   };
   await transporter.sendMail(mailOptions);
 
-  transporter.sendMail(toHostMailData, function (err, info) {
-    if (err) console.log(err);
-    else console.log(info);
-  });
+  // transporter.sendMail(toHostMailData, function (err, info) {
+  //   if (err) console.log(err);
+  //   else console.log(info);
+  // });
   return NextResponse.json(body);
 }
