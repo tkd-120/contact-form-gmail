@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const toHostMailData = {
     from: process.env.GMAILUSER,
-    to: "tkd120pg@gmail.com",
+    to: process.env.GMAILUSER,
     subject: `【お問い合わせ】${body.name}様より`,
     text: body.message + " | Sent from: " + body.email,
     html: `
