@@ -32,7 +32,7 @@ export default function Home() {
       }).then((res) => {
         if (res.status === 200) {
           console.log("送信に成功しました");
-          setMessage("送信いたしました。");
+          setMessage("送信に成功しました。");
           if (nameRef.current) nameRef.current.value = "";
           if (emailRef.current) emailRef.current.value = "";
           if (messageRef.current) messageRef.current.value = "";
@@ -89,7 +89,7 @@ export default function Home() {
       {message && (
         <div
           className={`${
-            message.includes("successfully") ? "text-green-700" : "text-red-700"
+            message.includes("成功") ? "text-blue-700" : "text-red-700"
           } text-sm font-medium mt-3`}
         >
           {message}
