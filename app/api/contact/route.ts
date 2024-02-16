@@ -25,7 +25,6 @@ export async function POST(request: NextRequest) {
       <p>${body.email}</p>
     `,
   };
-  await transporter.sendMail(toHostMailData);
 
   const mailOptions = {
     from: process.env.GMAILUSER,
@@ -33,6 +32,7 @@ export async function POST(request: NextRequest) {
     subject: "【自動返信】返信をお待ちください。",
     text: `${body.name}様\n\nお問い合わせありがとうございました。\n\n返信までしばらくお待ちください。\n\nお問い合わせ内容\n\n${body.message}`,
   };
+  await transporter.sendMail(toHostMailData);
   await transporter.sendMail(mailOptions);
 
   return NextResponse.json(body);
