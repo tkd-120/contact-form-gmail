@@ -3,7 +3,7 @@ import nodemailer from "nodemailer"
 
 export async function POST(request: NextRequest) {
 	const transporter = nodemailer.createTransport({
-		host: "smtp.googlemail.com",
+		host: "smtp.gmail.com",
 		port: 587,
 		auth: {
 			user: process.env.GMAILUSER,
