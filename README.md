@@ -1,5 +1,16 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# contact-form-gmail
+
+## 【プロダクト説明】
+
+タイトル：お問い合わせフォーム
+説明：メールでお問い合わせがあった際に、問い合わせを受けた旨の連絡を自動で返すお問い合わせフォームです。
+
+## プロダクトの URL
+
+https://contact-form-blush-five.vercel.app/
+
 ## Getting Started
 
 First, run the development server:
